@@ -234,16 +234,19 @@ class _ShippingAddressCardState extends State<ShippingAddressCard> {
                             CommonIcon(
                                 path: Assets.bin,
                               onPressed: () async {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => AccountDetails(activeTab: 1))) // Added active index param to the route
-                                    .then((val) {
-                                  debugPrint("refresh");
-                                  val != null? refreshOnly():Navigator.of(context).pop(true);
+                                await _shippingAddressController.deleteAddress(widget.id.toString()).then((value) =>  {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => AccountDetails(activeTab: 1))) // Added active index param to the route
+                                      .then((val) {
+                                    debugPrint("refresh");
+                                    val != null? refreshOnly():Navigator.of(context).pop(true);
+                                  })
                                 });
+                                
                                 //Navigator.of(context).pop(true);
-                                await _shippingAddressController.deleteAddress(widget.id.toString());
+                               
                               },),
                           ],
                         ),
